@@ -1,0 +1,1563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0051)http://blog.csdn.net/laotse/article/details/6294171 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="referrer" content="no-referrer">  
+
+            <link rel="canonical" href="http://blog.csdn.net/laotse/article/details/6294171"> 
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/laotse/article/details/6294171#">
+
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+       
+    <title>转载的socks4 socks5 rfc1928一大堆 - laotse的专栏
+        - CSDN博客</title>
+    
+    <meta name="description" content="SOCKS协议最初由David Koblas设计，后经Ying-Da Lee改进成SOCKS 4协议。SOCKS4协议主要是如下几个RFChttp://ftp.icm.edu.pl/packages/socks/socks4/SOCKS4.protocolhttp://www.rfc-editor.org/rfc/rfc1928.txthttp://www.smartftp.com/Products/SmartFTP/RFC/socks4a.protocolSOCKS 4只支持TCP转发。请求报文格式如下:">
+
+    <meta name="keywords" content="server,tcp,服务器">
+
+   
+    <script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/hm.js"></script><script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/blog_static_head.min.js" type="text/javascript"></script>
+
+    
+        <!--new top-->
+       
+       
+        <!--new top-->
+    
+      <!-- ad begin -->
+         
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/style.css">
+
+    
+
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/laotse/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/default.css">
+ 
+
+
+
+    <link href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/csdn_public_blog_detail.min.css" type="text/css" rel="stylesheet">
+     
+         <link rel="stylesheet" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/csdn_blog_detail.min.css">
+
+  
+
+
+    <!-- 请置于所有广告位代码之前 --> 
+            <script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/ds.js"></script>
+
+<script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/share.js"></script><link href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/bdsstyle.css" rel="stylesheet" type="text/css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="stylesheet" type="text/css" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/style(1).css"><link rel="stylesheet" type="text/css" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/style(2).css"><script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/logger.js"></script><link rel="stylesheet" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/share_style0_16.css"></head>
+
+
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><div id="MathJax_Message" style="display: none;"></div><iframe frameborder="0" style="display: none;" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/saved_resource.html"></iframe><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap ">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" id="toolbar_search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge"><li>蓝豆</li><li>直播技术</li><li>MongoDB</li><li>区块链</li><li>Docker</li><li>机器学习</li><li>Go</li><li>敏捷</li><li>Linux</li><li>Python</li><li>Git</li><li>大型网站架构</li><li>计算机网络</li><li>Redis</li><li>C语言</li><li>软件测试</li><li>OpenCV</li></ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"><div class="icon-hasnotes" style=""></div></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note" style="left: -212px; top: 25px; display: none;">                      <div class="box"><div class="notifications notice_list_con curr">  <div class="menu_title">    <span class="title"><a href="http://msg.csdn.net/letters" target="_blank" class="read_all">查看所有私信</a><a href="http://msg.csdn.net/" target="_blank" class="go_all">查看所有通知</a></span>  </div>  <div class="loading"></div>  <div class="empty">暂没有新通知</div>  <div class="notice_content" style="overflow-y: auto; max-height: 270px;"></div></div><div class="notifications detail_con" style="display: none">  <div class="menu_title">    <span class="title">      <a class="go_back" href="javascript:void 0;">返回通知列表</a>      <a class="notifications_page_none nextnote" href="javascript:void 0;">下一条</a>      <a class="notifications_page prvnote" href="javascript:void 0;">上一条</a>    </span>  </div>  <div class="notice_content" style="overflow-y: scroll; height: 250px;"></div></div><div class="error"></div></div>                    <iframe src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/2_libhack.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/2_libhack.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname">libhack</a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     
+        <div class="tracking-ad" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+                     <script id="popuLayer_js_q" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/popuLayer.js" defer="defer" type="text/javascript"></script>
+                <div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px; display: none;">
+    	                <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"><iframe id="iframeu2895327_0" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/jcpm.html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div></div>
+                <script>  document.getElementById("popuLayer_js_q").onload = function () { var styObjd = styObj = { width: "300px", "height": parseInt(250) + 28 }; window.CSDN.Layer.PopuLayer("#layerd", { storageName: "layerd", styleObj: styObjd, total: 50, expoire: 1000 * 60 }); }</script><!-- 投放代码 --><script type="text/javascript">                    /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({ id: "u2895327" });  </script>  <script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/c.js" type="text/javascript"></script>
+     
+        </div>
+
+    <!-- 广告位开始 -->
+        
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/laotse">laotse的专栏</a></h2>
+            <h3>laotse的专栏</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/laotse?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/laotse?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/laotse/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "laotse";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/laotse";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "libhack";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/74984986" target="_blank">
+<font color="red"><strong>CSDN日报0711——《离开校园，入职阿里，开启新的程序人生》</strong></font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/74550215" target="_blank">
+<font color="blue"><strong>征文 | 你会为 AI 转型么？</strong></font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://ask.csdn.net/subjects/31" target="_blank">
+<font color="red"><strong>专家问答 | 资深Java工程师带你解读MyBatis</strong></font></a>
+
+
+</div>                        </div>
+
+                        
+
+
+
+  
+
+
+
+
+
+
+<script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/category.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+      var isBole = false; 
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e8%bd%ac%e8%bd%bd%e7%9a%84socks4+socks5+rfc1928%e4%b8%80%e5%a4%a7%e5%a0%86&u=http://blog.csdn.net/laotse/article/details/6294171"
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/laotse/article/details/6294171">
+        转载的socks4 socks5 rfc1928一大堆        
+           
+        </a>
+        </span>
+
+         
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/server" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">server</a><a href="http://www.csdn.net/tag/tcp" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">tcp</a><a href="http://www.csdn.net/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">服务器</a><a href="http://www.csdn.net/tag/methods" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">methods</a><a href="http://www.csdn.net/tag/ftp%e6%9c%8d%e5%8a%a1%e5%99%a8" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">ftp服务器</a><a href="http://www.csdn.net/tag/%e9%98%b2%e7%81%ab%e5%a2%99" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">防火墙</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2011-04-01 13:46</span>
+            <span class="link_view" title="阅读次数">18592人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/laotse/article/details/6294171#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e8%bd%ac%e8%bd%bd%e7%9a%84socks4+socks5+rfc1928%e4%b8%80%e5%a4%a7%e5%a0%86&#39;,&#39;6294171&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/laotse/article/details/6294171#report" onclick="javascript:report(6294171,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;804164&#39;,&#39;laotse&#39;,&#39;top&#39;,&#39;6294171&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">转载<em>（5）</em></span>
+                      <img class="arrow-down" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/laotse/article/category/804164" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_804164">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+
+  
+
+  
+  
+     
+
+
+<div id="article_content" class="article_content tracking-ad" data-mod="popu_307" data-dsm="post">
+<pre><span style="background-color: #ff0000;"><span style="color: #ff0000;"><span style="font-size: large;"><span style="background-color: #ffffff;">除了这个意译版rfc1928外，其他人写的好像也有错误，都是一知半解。</span></span></span></span></pre>
+<pre></pre>
+<pre><span style="background-color: #ffff00;">☆ RFC 1928意译版(非直译版)
+
+http://www.ietf.org/rfc/rfc1928.txt
+http://www.sczgroup.org/network/200503311423.txt
+
+SOCKS协议位于传输层(TCP/UDP等)与应用层之间，因而显然地位于网络层(IP)之上。
+诸如IP层报文转发、ICMP协议等等都因太低层而与SOCKS协议无关。
+
+SOCKS 4不支持认证、UDP协议以及远程解析FQDN。SOCKS 5支持。
+
+SOCKS Server缺省侦听在1080/TCP口。这是SOCKS Client连接到SOCKS Server之后发
+送的第一个报文:
+
++----+----------+----------+
+|VER | NMETHODS | METHODS  |
++----+----------+----------+
+| 1  |    1     | 1 to 255 |
++----+----------+----------+
+
+对于SOCKS 5，VER字段为0x05，版本4对应0x04。NMETHODS字段指定METHODS域的字节
+数。不知NMETHODS可以为0否，看上图所示，可取值[1,255]。METHODS字段有多少字
+节(假设不重复)，就意味着SOCKS Client支持多少种认证机制。
+
+SOCKS Server从METHODS字段中选中一个字节(一种认证机制)，并向SOCKS Client发
+送响应报文:
+
++----+--------+
+|VER | METHOD |
++----+--------+
+| 1  |   1    |
++----+--------+
+
+目前可用METHOD值有:
+
+0x00        NO AUTHENTICATION REQUIRED(无需认证)
+0x01        GSSAPI
+0x02        USERNAME/PASSWORD(用户名/口令认证机制)
+0x03-0x7F   IANA ASSIGNED
+0x80-0xFE   RESERVED FOR PRIVATE METHODS(私有认证机制)
+0xFF        NO ACCEPTABLE METHODS(完全不兼容)
+
+如果SOCKS Server响应以0xFF，表示SOCKS Server与SOCKS Client完全不兼容，
+SOCKS Client必须关闭TCP连接。认证机制协商完成后，SOCKS Client与
+SOCKS Server进行认证机制相关的子协商，参看其它文档。为保持最广泛兼容性，
+SOCKS Client、SOCKS Server必须支持0x01，同时应该支持0x02。
+
+认证机制相关的子协商完成后，SOCKS Client提交转发请求:
+
++----+-----+-------+------+----------+----------+
+|VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
++----+-----+-------+------+----------+----------+
+| 1  |  1  | X'00' |  1   | Variable |    2     |
++----+-----+-------+------+----------+----------+
+
+VER         对于版本5这里是0x05
+
+CMD         可取如下值:
+
+            0x01    CONNECT
+            0x02    BIND
+            0x03    UDP ASSOCIATE
+
+RSV         保留字段，必须为0x00
+
+ATYP        用于指明DST.ADDR域的类型，可取如下值:
+
+            0x01    IPv4地址
+            0x03    FQDN(全称域名)
+            0x04    IPv6地址
+
+DST.ADDR    CMD相关的地址信息，不要为DST所迷惑
+
+            如果是IPv4地址，这里是big-endian序的4字节数据
+
+            如果是FQDN，比如"www.nsfocus.net"，这里将是:
+
+            0F 77 77 77 2E 6E 73 66 6F 63 75 73 2E 6E 65 74
+
+            注意，没有结尾的NUL字符，非ASCIZ串，第一字节是长度域
+
+            如果是IPv6地址，这里是16字节数据。
+
+DST.PORT    CMD相关的端口信息，big-endian序的2字节数据
+
+SOCKS Server评估来自SOCKS Client的转发请求并发送响应报文:
+
++----+-----+-------+------+----------+----------+
+|VER | REP |  RSV  | ATYP | BND.ADDR | BND.PORT |
++----+-----+-------+------+----------+----------+
+| 1  |  1  | X'00' |  1   | Variable |    2     |
++----+-----+-------+------+----------+----------+
+
+VER         对于版本5这里是0x05
+
+REP         可取如下值:
+
+            0x00        成功
+            0x01        一般性失败
+            0x02        规则不允许转发
+            0x03        网络不可达
+            0x04        主机不可达
+            0x05        连接拒绝
+            0x06        TTL超时
+            0x07        不支持请求包中的CMD
+            0x08        不支持请求包中的ATYP
+            0x09-0xFF   unassigned
+
+RSV         保留字段，必须为0x00
+
+ATYP        用于指明BND.ADDR域的类型
+
+BND.ADDR    CMD相关的地址信息，不要为BND所迷惑
+
+BND.PORT    CMD相关的端口信息，big-endian序的2字节数据
+
+1) CONNECT命令
+
+假设CMD为CONNECT，SOCKS Client、SOCKS Server之间通信的相关四元组是:
+
+SOCKSCLIENT.ADDR，SOCKSCLIENT.PORT，SOCKSSERVER.ADDR，SOCKSSERVER.PORT
+
+一般SOCKSSERVER.PORT是1080/TCP。
+
+CONNECT请求包中的DST.ADDR/DST.PORT指明转发目的地。SOCKS Server可以靠
+DST.ADDR、DST.PORT、SOCKSCLIENT.ADDR、SOCKSCLIENT.PORT进行评估，以决定建立
+到转发目的地的TCP连接还是拒绝转发。
+
+假设规则允许转发并且成功建立到转发目的地的TCP连接，相关四元组是:
+
+BND.ADDR，BND.PORT，DST.ADDR，DST.PORT
+
+此时SOCKS Server向SOCKS Client发送的CONNECT响应包中将指明BND.ADDR/BND.PORT。
+注意，BND.ADDR可能不同于SOCKSSERVER.ADDR，SOCKS Server所在主机可能是多目(
+multi-homed)主机。
+
+假设拒绝转发或未能成功建立到转发目的地的TCP连接，CONNECT响应包中REP字段将
+指明具体原因。
+
+响应包中REP非零时表示失败，SOCKS Server必须在发送响应包后不久(不超过10s)关
+闭与SOCKS Client之间的TCP连接。
+
+响应包中REP为零时表示成功。之后SOCKS Client直接在当前TCP连接上发送待转发数
+据。
+
+2) BIND命令
+
+假设CMD为BIND。这多用于FTP协议，FTP协议在某些情况下要求FTP Server主动建立
+到FTP Client的连接，即FTP数据流。
+
+FTP Client - SOCKS Client - SOCKS Server - FTP Server
+
+a. FTP Client试图建立FTP控制流。SOCKS Client向SOCKS Server发送CONNECT请求，
+   后者响应请求，最终FTP控制流建立。
+
+   CONNECT请求包中指明FTPSERVER.ADDR/FTPSERVER.PORT。
+
+b. FTP Client试图建立FTP数据流。SOCKS Client建立新的到SOCKS Server的TCP连
+   接，并在新的TCP连接上发送BIND请求。
+
+   BIND请求包中仍然指明FTPSERVER.ADDR/FTPSERVER.PORT。SOCKS Server应该据此
+   进行评估。
+
+   SOCKS Server收到BIND请求，创建新套接字，侦听在AddrA/PortA上，并向SOCKS
+   Client发送第一个BIND响应包，包中BND.ADDR/BND.PORT即AddrA/PortA。
+
+c. SOCKS Client收到第一个BIND响应包。FTP Client通过FTP控制流向FTP Server发
+   送PORT命令，通知FTP Server应该主动建立到AddrA/PortA的TCP连接。
+
+d. FTP Server收到PORT命令，主动建立到AddrA/PortA的TCP连接，假设TCP连接相关
+   四元组是:
+
+   AddrB，PortB，AddrA，PortA
+
+e. SOCKS Server收到来自FTP Server的TCP连接请求，向SOCKS Client发送第二个
+   BIND响应包，包中BND.ADDR/BND.PORT即AddrB/PortB。然后SOCKS Server开始转
+   发FTP数据流。
+
+下面是一些讨论记录:
+
+scz
+
+为什么需要发送第二个BIND响应包，指明AddrB/PortB的意义何在。
+
+knightmare@apue
+
+指明AddrB/PortB的意义在于，FTP Client出于安全考虑，会检查FTP数据流的源IP、
+源端口，比如FTP数据流的源端只允许是FTPSERVER.ADDR/20。
+
+scz
+
+knightmare的答案是正确的，但我的疑惑可能源于我对SOCKS协议的错误理解，以至
+提出一个产生歧义的问题。事实上应该查看David Koblas的原始文档以理解BIND请求
+的全过程。前面关于FTP数据流的描述部分已做了修正，因此看不出提问的缘由了。
+
+3) UDP ASSOCIATE命令
+
+假设CMD为UDP ASSOCIATE。此时DST.ADDR与DST.PORT指明发送UDP报文时的源IP、源
+端口，而不是UDP转发目的地，SOCKS Server可以据此进行评估以决定是否进行UDP转
+发。如果SOCKS Client发送UDP ASSOCIATE命令时无法提供DST.ADDR与DST.PORT，则
+必须将这两个域置零。
+
+下面是一些讨论记录:
+
+scz
+
+什么情况下SOCKS Client发送UDP ASSOCIATE命令，又无法提供DST.ADDR与DST.PORT，
+或者说出于什么考虑才需要刻意将这两个域置零。有现实例子存在吗。
+
+shixudong@163.com
+
+考虑这种情况:
+
+Application Client - SOCKS Client - NAT - SOCKS Server - Application Server
+
+SOCKS Client在UDP ASSOCIATE命令中指明DST.ADDR/DST.PORT，SOCKS Server靠这些
+信息决定是否转发某个UDP报文。上图中SOCKS Client与SOCKS Server之间有NAT，前
+者无法预知UDP报文经过NAT后源IP、源端口会变成什么样，但肯定会变，因此前者无
+法提前在UDP ASSOCIATE命令中指明DST.ADDR/DST.PORT，如果强行指定非零值，后者
+会检测到待转发UDP报文的源IP、源端口与DST.ADDR/DST.PORT不匹配而拒绝转发。针
+对这种情况，RFC 1928建议SOCKS Client将DST.ADDR/DST.PORT置零，SOCKS Server
+此时不再检查待转发UDP报文的源IP、源端口。
+
+在一条TCP连接上SOCKS Client向SOCKS Server发送了UDP ASSOCIATE命令，后续UDP
+转发要求此TCP连接继续维持，此TCP连接关闭时相应的UDP转发也将中止。换句话说，
+UDP转发必然伴随着一个TCP连接，这将消耗额外的资源。
+
+SOCKS Server向SOCKS Client发送UDP ASSOCIATE响应包，BND.ADDR/BND.PORT指明
+SOCKS Client应向哪里发送待转发UDP报文。
+
+对于UDP转发，SOCKS Client发送出去的UDP数据区如下:
+
++----+------+------+----------+----------+----------+
+|RSV | FRAG | ATYP | DST.ADDR | DST.PORT |   DATA   |
++----+------+------+----------+----------+----------+
+| 2  |  1   |  1   | Variable |    2     | Variable |
++----+------+------+----------+----------+----------+
+
+RSV         保留字段，必须为0x0000
+
+FRAG        Current fragment number
+
+            0x00        这是一个非碎片的SOCKS UDP报文
+            0x01-0x7F   SOCKS碎片序号
+            0x80-0xFF   最高位置1表示碎片序列结束，即这是最后一个SOCKS碎片
+
+ATYP        用于指明DST.ADDR域的类型，可取如下值:
+
+            0x01    IPv4地址
+            0x03    FQDN(全称域名)
+            0x04    IPv6地址
+
+DST.ADDR    转发目标地址
+
+DST.PORT    转发目标端口
+
+DATA        原始UDP数据区
+
+SOCKS Server静静地为SOCKS Client进行UDP转发，并不通知后者转发完成还是被拒
+绝。
+
+FRAG用于支持SOCKS碎片。SOCKS碎片接收方一般实现有重组队列与重组定时器。假设
+重组定时器超时或者低序SOCKS碎片后于高序SOCKS碎片到达重组队列，此时必须重置
+重组队列。重组定时器不得小于5秒。应该尽可能地避免出现SOCKS碎片。
+
+是否支持SOCKS碎片是可选的，如果一个SOCKS实现不支持SOCKS碎片，则必须丢弃所
+有接收到的SOCKS碎片，即那些FRAG字段非零的SOCKS UDP报文。
+
+由于SOCKS实现在支持UDP转发时会在原始UDP数据区前增加一个SOCKS协议相关的头，
+因此为UDP数据区分配空间时要为这个头留足空间:
+
+ATYP    头占用字节  原因
+0x01    10          IPv4地址占4字节，4+6=10
+0x03    262         长度域是一个字节，因此最大0xFF，1+255+6=262
+0x04    20          这里我怀疑是笔误，IPv6地址占16字节，16+6=22
+
+我怀疑RFC 1928这里有笔误，写信询问mleech@bnr.ca、ietf-web@ietf.org去了。
+</span></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="background-color: #ffcc00;">SOCKS 4A是SOCKS 4协议的简单扩展，允许客户端对无法解析的目的主机，进行自行规定。<br>客户端对DSTIP的头三个字节设定为NULL，最后一个字节为非零；对应的IP地址就是0.0.0.x，其中x是非零，这当然不可能是目的主机的地址，这样即使客户端可以解析域名，对此也不会发生冲突。USERID以紧跟的NULL字节作结尾，客户端必须发送目的主机的域名，并以另一个NULL字节作结尾。CONNECT和BIND请求的时候，都要按照这种格式（以字节为单位）：<br><br>+----+----+----+----+----+----+----+----+----+----+....+----+----+----+....+----+<br>| VN | CD | DSTPORT | DSTIP 0.0.0.x | USERID |NULL| HOSTNAME |NULL|<br>+----+----+----+----+----+----+----+----+----+----+....+----+----+----+....+----+<br>1 1 2 4 variable 1 variable 1<br><br>使用4a协议的服务器必须检查请求包里的DSTIP字段，如果表示地址0.0.0.x，x是非零结尾，那么服务器就得读取客户端所发包中的域名字段，然后服务器就得解析这个域名，可以的话，对目的主机进行连接。</span></p>
+<p><span style="background-color: #ffcc00;">&nbsp;</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="background-color: #ccffcc;">SOCKS协议最初由David Koblas设计，后经Ying-Da Lee改进成SOCKS 4协议。</span></p>
+<p><span style="background-color: #ccffcc;">SOCKS4协议主要是如下几个RFC<br></span><a href="http://ftp.icm.edu.pl/packages/socks/socks4/SOCKS4.protocol" target="_blank"><span style="background-color: #ccffcc;">http://ftp.icm.edu.pl/packages/socks/socks4/SOCKS4.protocol</span></a><br><a href="http://www.rfc-editor.org/rfc/rfc1928.txt" target="_blank"><span style="background-color: #ccffcc;">http://www.rfc-editor.org/rfc/rfc1928.txt</span></a><br><a href="http://www.smartftp.com/Products/SmartFTP/RFC/socks4a.protocol" target="_blank"><span style="background-color: #ccffcc;">http://www.smartftp.com/Products/SmartFTP/RFC/socks4a.protocol</span></a><br><span style="background-color: #ccffcc;">&nbsp;</span></p>
+<p><br><span style="background-color: #ccffcc;">SOCKS 4只支持TCP转发。</span></p>
+<p><span style="background-color: #ccffcc;">请求报文格式如下:</span></p>
+<p><span style="background-color: #ccffcc;">+----+----+----+----+----+----+----+----+----+----+...+----+<br>| VN | CD | DSTPORT |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DSTIP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | USERID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |NULL|<br>+----+----+----+----+----+----+----+----+----+----+...+----+<br>&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; variable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span></p>
+<p><span style="background-color: #ccffcc;">VN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOCKS协议版本号，应该是0x04</span></p>
+<p><span style="background-color: #ccffcc;">CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOCKS命令，可取如下值:</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01&nbsp;&nbsp;&nbsp; CONNECT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x02&nbsp;&nbsp;&nbsp; BIND</span></p>
+<p><span style="background-color: #ccffcc;">DSTPORT CD相关的端口信息</span></p>
+<p><span style="background-color: #ccffcc;">DSTIP&nbsp;&nbsp; CD相关的地址信息</span></p>
+<p><span style="background-color: #ccffcc;">USERID&nbsp; 客户方的USERID</span></p>
+<p><span style="background-color: #ccffcc;">NULL&nbsp;&nbsp;&nbsp; 0x00</span></p>
+<p><span style="background-color: #ccffcc;">响应报文格式如下:</span></p>
+<p><span style="background-color: #ccffcc;">+----+----+----+----+----+----+----+----+<br>| VN | CD | DSTPORT |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DSTIP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>+----+----+----+----+----+----+----+----+<br>&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4</span></p>
+<p><span style="background-color: #ccffcc;">VN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 应该为0x00而不是0x04</span></p>
+<p><span style="background-color: #ccffcc;">CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 可取如下值:</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x5A&nbsp;&nbsp;&nbsp; 允许转发<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x5B&nbsp;&nbsp;&nbsp; 拒绝转发，一般性失败<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x5C&nbsp;&nbsp;&nbsp; 拒绝转发，SOCKS 4 Server无法连接到SOCS 4 Client所在主机的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDENT服务<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x5D&nbsp;&nbsp;&nbsp; 拒绝转发，请求报文中的USERID与IDENT服务返回值不相符</span></p>
+<p><span style="background-color: #ccffcc;">DSTPORT CD相关的端口信息</span></p>
+<p><span style="background-color: #ccffcc;">DSTIP&nbsp;&nbsp; CD相关的地址信息</span></p>
+<p><span style="background-color: #ccffcc;">1) CONNECT命令</span></p>
+<p><span style="background-color: #ccffcc;">对于CONNECT请求，DSTIP/DSTPORT指明转发目的地。</span></p>
+<p><span style="background-color: #ccffcc;">SOCKS 4 Server根据源IP、DSTPORT、DSTIP、USERID以及可从SOCS 4 Client所在主<br>机的IDENT服务(RFC 1413)获取的信息进行综合评估，以决定建立相应连接还是拒绝<br>转发。</span></p>
+<p><span style="background-color: #ccffcc;">假设CONNECT请求被允许，SOCKS 4 Server试图建立到转发目的地的TCP连接，然后向<br>SOCKS 4 Client发送响应报文，指明是否成功建立转发连接。</span></p>
+<p><span style="background-color: #ccffcc;">如果CONNECT请求被拒绝，SOCKS 4 Server也向SOCKS 4 Client发送响应报文，随后<br>立即关闭连接。</span></p>
+<p><span style="background-color: #ccffcc;">CONNECT响应包中只有VN、CD字段有意义，DSTPORT、DSTIP字段被忽略。如果CD等于<br>0x5A，表示成功建立转发连接，之后SOCKS 4 Client直接在当前TCP连接上发送待转<br>发数据。</span></p>
+<p><span style="background-color: #ccffcc;">2) BIND命令</span></p>
+<p><span style="background-color: #ccffcc;">FTP协议在某些情况下要求FTP Server主动建立到FTP Client的连接，即FTP数据流。</span></p>
+<p><span style="background-color: #ccffcc;">FTP Client - SOCKS 4 Client - SOCKS 4 Server - FTP Server</span></p>
+<p><span style="background-color: #ccffcc;">a. FTP Client试图建立FTP控制流。SOCKS 4 Client向SOCKS 4 Server发送CONNECT<br>&nbsp;&nbsp; 请求，后者响应请求，最终FTP控制流建立。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; CONNECT请求包中指明FTPSERVER.ADDR/FTPSERVER.PORT。</span></p>
+<p><span style="background-color: #ccffcc;">b. FTP Client试图建立FTP数据流。SOCKS 4 Client建立新的到SOCKS 4 Server的<br>&nbsp;&nbsp; TCP连接，并在新的TCP连接上发送BIND请求。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; BIND请求包中仍然指明FTPSERVER.ADDR/FTPSERVER.PORT。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; SOCKS 4 Server收到BIND请求，根据这两个信息以及USERID对BIND请求进行评估。<br>&nbsp;&nbsp; 创建新套接字，侦听在AddrA/PortA上，并向SOCKS 4 Client发送第一个BIND响应<br>&nbsp;&nbsp; 包。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; BIND响应包中CD不等于0x5A时表示失败，包中DSTPORT、DSTIP字段被忽略。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; BIND响应包中CD等于0x5A时，包中DSTIP/DSTPORT对应AddrA/PortA。如果DSTIP等<br>&nbsp;&nbsp; 于0(INADDR_ANY)，SOCKS 4 Client应将其替换成SOCKS 4 Server的IP，当SOCKS<br>&nbsp;&nbsp; 4 Server非多目(multi-homed)主机时就可能出现这种情况。</span></p>
+<p><span style="background-color: #ccffcc;">c. SOCKS 4 Client收到第一个BIND响应包。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; FTP Client调用getsockname(不是getpeername)获取AddrA/PortA，通过FTP控制<br>&nbsp;&nbsp; 流向FTP Server发送PORT命令，通知FTP Server应该主动建立到AddrA/PortA的<br>&nbsp;&nbsp; TCP连接。</span></p>
+<p><span style="background-color: #ccffcc;">d. FTP Server收到PORT命令，主动建立到AddrA/PortA的TCP连接，假设TCP连接相关<br>&nbsp;&nbsp; 四元组是:</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; AddrB，PortB，AddrA，PortA</span></p>
+<p><span style="background-color: #ccffcc;">e. SOCKS 4 Server收到来自FTP Server的TCP连接请求，检查这条入连接的源IP(<br>&nbsp;&nbsp; AddrB)是否与FTPSERVER.ADDR匹配，然后向SOCKS 4 Client发送第二个BIND响应<br>&nbsp;&nbsp; 包。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; 源IP不匹配时第二个BIND响应包中CD字段设为0x5B，然后SOCKS 4 Server关闭这<br>&nbsp;&nbsp; 条用于发送第二个BIND响应包的TCP连接，同时关闭与FTP Server之间的TCP连接，<br>&nbsp;&nbsp; 但主TCP连接(与CONNECT请求相关的那条TCP连接)继续保持中。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; 源IP匹配时CD字段设为0x5A。然后SOCKS 4 Server开始转发FTP数据流。</span></p>
+<p><span style="background-color: #ccffcc;">&nbsp;&nbsp; 无论如何，第二个BIND响应包中DSTPORT、DSTIP字段被忽略。</span></p>
+<p><span style="background-color: #ccffcc;">对于CONNECT、BIND请求，SOCKS 4 Server有一个定时器(当前CSTC实现采用两分钟)。<br>假设定时器超时，而SOCKS 4 Server与Application Server之间的TCP连接(出连接或<br>入连接)仍未建立，SOCKS 4 Server将关闭与SOCKS 4 Client之间相应的TCP连接并放<br>弃相应的转发。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="background-color: #00ff00;">SOCKS&nbsp;&nbsp; 5协议详解&nbsp;&nbsp; 　　&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　笔者在实际学习中，由于在有些软件用到了socks5(如oicq,icq等)，对其原理不甚了解，相信很多朋友对其也不是很了解，于是仔细研读了一下rfc1928，觉得有必要译出来供大家参考。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 1．介绍：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　防火墙的使用，有效的隔离了机构的内部网络和外部网络，这种类型的Internet<a href="http://lib.csdn.net/base/architecture" class="replace_word" title="大型网站架构知识库" target="_blank" style="color:#df3434; font-weight:bold;">架构</a>变得越来越流行。这些防火墙系统大都充当着网络之间的应用层网关的角色，通常提供经过控制的Telnet,FTP,和SMTP访问。为了推动全球信息的交流，更多的新的应用层协议的推出。这就有必要提供一个总的架构使这些协议能够更明显和更安全的穿过防火墙。也就有必要在实际上为它们穿过防火墙提供一个更强的认证机制。这种需要源于客户机-服务器联系在不同组织网络之间的实现，而这种联系需要被控制和是很大程度上被认证的。&nbsp;&nbsp; <br>&nbsp; 　　该协议被描述为用来提供在TCP和UDP域下为客户机-服务器应用程序便利和安全的穿过防火墙的一个架构。该协议在概念上被描述为一个介于应用层和传输层之间的"隔离层"，但是这类服务并不提供网络层网关服务，如ICMP报文的传输。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 2．现状：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　SOCKS&nbsp;&nbsp; 4为基于TCP的客户机-服务器应用程序提供了一种不安全的穿越防火墙的机制，包括TELNET,FTP和当前最流行的信息发现协议如HTTP,WAIS和GOPHER.&nbsp;&nbsp; <br>&nbsp; 　　新协议为了包括UDP扩展了SOCKS&nbsp;&nbsp; 4，为了包括对总体上更强的认证机制的支持扩展了协议架构，为了包括域名和IPv6地址的支持扩展了地址集。&nbsp;&nbsp; <br>&nbsp; 　　SOCKS协议执行最具代表性的是包括了在SOCKS库中利用适当的封装程序来对基于TCP的客户程序进行重编译和重链结。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 注意：&nbsp;&nbsp; <br>&nbsp; 　　除非特别提及，封装在包格式中的十进制数表示的是通讯域的长度(用八位组octect表示)。一个给定的八位组必须具有指定的值，格式X'hh'被用来表示在该域中单个八位组的值。当单词"变量Variable"被使用时，它指出了通讯域拥有一个可变长度，这个可变长度要么由一个联合的(一个或两个八位组)长度域定义，要么由一个数据类型域所定义。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 3．基于TCP客户机的程序&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　当一台基于TCP的客户机希望和目标主机建立连接时，而这台目标主机只有经过防火墙才能到达(这种情况？一直持续到？它被执行时)，它就必须在 SOCKS服务器端的适当的SOCKS端口打开一个TCP连结。SOCKS服务按常例来说定位于TCP端口1080。如果连接请求成功，客户机为即将使用的认证方式进行一种协商，对所选的方式进行认证，然后发送一个转发请求。SOCKS服务器对该请求进行评估，并且决定是否建立所请求转发的连接。&nbsp;&nbsp; <br>&nbsp; 　　客户机连接到服务器，发送一个版本标识/方法选择报文：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　+----+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|VER&nbsp;&nbsp; |&nbsp;&nbsp; NMETHODS&nbsp;&nbsp; |&nbsp;&nbsp; METHODS&nbsp;&nbsp; |&nbsp;&nbsp; <br>&nbsp; 　　+----+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|&nbsp;&nbsp; 1　|&nbsp;&nbsp; 　　1　　|&nbsp;&nbsp; 1&nbsp;&nbsp; to&nbsp;&nbsp; 255&nbsp;&nbsp; |&nbsp;&nbsp; <br>&nbsp; 　　+----+----------+----------+&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　VER(版本)在这个协议版本中被设置为X'05'。NMETHODS(方法选择)中包含在METHODS(方法)中出现的方法标识八位组的数目。&nbsp;&nbsp; <br>&nbsp; 　　服务器从METHODS给出的方法中选出一种，发送一个METHOD&nbsp;&nbsp; selection(方法选择)报文：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　+----+--------+&nbsp;&nbsp; <br>&nbsp; 　　|VER&nbsp;&nbsp; |&nbsp;&nbsp; METHOD&nbsp;&nbsp; |&nbsp;&nbsp; <br>&nbsp; 　　+----+--------+&nbsp;&nbsp; <br>&nbsp; 　　|&nbsp;&nbsp; 1　|&nbsp;&nbsp; 　1　　|&nbsp;&nbsp; <br>&nbsp; 　　+----+--------+&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　如果所选择的METHOD的值是X'FF',则客户机所列出的方法是没有可以被接受的，客户机就必须关闭连接。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 当前被定义的METHOD的值有：&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'00'&nbsp;&nbsp; 无验证需求&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'01'&nbsp;&nbsp; 通用安全服务应用程序接口(GSSAPI)&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'02'&nbsp;&nbsp; 用户名/密码(USERNAME/PASSWORD)&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'03'&nbsp;&nbsp; 至&nbsp;&nbsp; X'7F'&nbsp;&nbsp; IANA&nbsp;&nbsp; 分配(IANA&nbsp;&nbsp; ASSIGNED)&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'80'&nbsp;&nbsp; 至&nbsp;&nbsp; X'FE'&nbsp;&nbsp; 私人方法保留(RESERVED&nbsp;&nbsp; FOR&nbsp;&nbsp; PRIVATE&nbsp;&nbsp; METHODS)&nbsp;&nbsp; <br>&nbsp; 　　&gt;&gt;&nbsp;&nbsp; X'FF'&nbsp;&nbsp; 无可接受方法(NO&nbsp;&nbsp; ACCEPTABLE&nbsp;&nbsp; METHODS)&nbsp;&nbsp; <br>&nbsp; ***IANA是负责全球INTERNET上的IP地址进行编号分配的机构(译者著)***&nbsp;&nbsp; <br>&nbsp; 　　于是客户机和服务器进入方法细节的子商议。方法选择子商议另外描述于独立的文档中。&nbsp;&nbsp; <br>&nbsp; 　　欲得到该协议新的METHOD支持的开发者可以和IANA联系以求得到METHOD号。已分配号码的文档需要参考METHOD号码的当前列表和它们的通讯协议。&nbsp;&nbsp; <br>&nbsp; 　　如果想顺利的执行则必须支持GSSAPI和支持用户名/密码(USERNAME/PASSWORD)认证方法。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 4．需求&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　一旦方法选择子商议结束，客户机就发送请求细节。如果商议方法包括了完整性检查的目的和/或机密性封装，则请求必然被封在方法选择的封装中。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; SOCKS请求如下表所示：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|VER&nbsp;&nbsp; |&nbsp;&nbsp; CMD&nbsp;&nbsp; |　RSV　|&nbsp;&nbsp; ATYP&nbsp;&nbsp; |&nbsp;&nbsp; DST.ADDR&nbsp;&nbsp; |&nbsp;&nbsp; DST.PORT&nbsp;&nbsp; |&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|&nbsp;&nbsp; 1　|&nbsp;&nbsp; 　1&nbsp;&nbsp; |&nbsp;&nbsp; X'00'&nbsp;&nbsp; |&nbsp;&nbsp; 　1　|&nbsp;&nbsp; Variable&nbsp;&nbsp; |　　&nbsp;&nbsp; 2　　|&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 其中：&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; VER&nbsp;&nbsp; protocol&nbsp;&nbsp; version：X'05'&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; CMD&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; CONNECT&nbsp;&nbsp; X'01'&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; BIND&nbsp;&nbsp; X'02'&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; UDP&nbsp;&nbsp; ASSOCIATE&nbsp;&nbsp; X'03'&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; RSV&nbsp;&nbsp; RESERVED&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; ATYP&nbsp;&nbsp; address&nbsp;&nbsp; type&nbsp;&nbsp; of&nbsp;&nbsp; following&nbsp;&nbsp; address&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; IP&nbsp;&nbsp; V4&nbsp;&nbsp; address:&nbsp;&nbsp; X'01'&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; DOMAINNAME:&nbsp;&nbsp; X'03'&nbsp;&nbsp; <br>&nbsp; 　o&nbsp;&nbsp; IP&nbsp;&nbsp; V6&nbsp;&nbsp; address:&nbsp;&nbsp; X'04'&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; DST.ADDR&nbsp;&nbsp; desired&nbsp;&nbsp; destination&nbsp;&nbsp; address&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; DST.PORT&nbsp;&nbsp; desired&nbsp;&nbsp; destination&nbsp;&nbsp; port&nbsp;&nbsp; in&nbsp;&nbsp; network&nbsp;&nbsp; octet&nbsp;&nbsp; order&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 5．地址&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　在地址域(DST.ADDR,BND.ADDR)中，ATYP域详细说明了包含在该域内部的地址类型：&nbsp;&nbsp; <br>&nbsp; 　　　　o&nbsp;&nbsp; X'01'&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　该地址是IPv4地址，长4个八位组。&nbsp;&nbsp; <br>&nbsp; 　　　　o&nbsp;&nbsp; X'03'&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　该地址包含一个完全的域名。第一个八位组包含了后面名称的八位组的数目，没有中止的空八位组。&nbsp;&nbsp; <br>&nbsp; 　　　　o&nbsp;&nbsp; X'04'&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　该地址是IPv6地址，长16个八位组。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 6．回应&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　到SOCKS服务器的连接一经建立，客户机即发送SOCKS请求信息，并且完成认证商议。服务器评估请求，返回一个回应如下表所示：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|VER&nbsp;&nbsp; |&nbsp;&nbsp; REP&nbsp;&nbsp; |　RSV　|&nbsp;&nbsp; ATYP&nbsp;&nbsp; |&nbsp;&nbsp; BND.ADDR&nbsp;&nbsp; |&nbsp;&nbsp; BND.PORT&nbsp;&nbsp; |&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp; 　　|&nbsp;&nbsp; 1　|　1　|&nbsp;&nbsp; X'00'&nbsp;&nbsp; |　1&nbsp;&nbsp; 　|&nbsp;&nbsp; Variable&nbsp;&nbsp; |&nbsp;&nbsp; 　　2　　|&nbsp;&nbsp; <br>&nbsp; 　　+----+-----+-------+------+----------+----------+&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 其中：&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; VER&nbsp;&nbsp; protocol&nbsp;&nbsp; version:&nbsp;&nbsp; X'05'&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; REP&nbsp;&nbsp; Reply&nbsp;&nbsp; field:&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'00'&nbsp;&nbsp; succeeded&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'01'&nbsp;&nbsp; general&nbsp;&nbsp; SOCKS&nbsp;&nbsp; server&nbsp;&nbsp; failure&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'02'&nbsp;&nbsp; connection&nbsp;&nbsp; not&nbsp;&nbsp; allowed&nbsp;&nbsp; by&nbsp;&nbsp; ruleset&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'03'&nbsp;&nbsp; Network&nbsp;&nbsp; unreachable&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'04'&nbsp;&nbsp; Host&nbsp;&nbsp; unreachable&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'05'&nbsp;&nbsp; Connection&nbsp;&nbsp; refused&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'06'&nbsp;&nbsp; TTL&nbsp;&nbsp; expired&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'07'&nbsp;&nbsp; Command&nbsp;&nbsp; not&nbsp;&nbsp; supported&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'08'&nbsp;&nbsp; Address&nbsp;&nbsp; type&nbsp;&nbsp; not&nbsp;&nbsp; supported&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; X'09'&nbsp;&nbsp; to&nbsp;&nbsp; X'FF'&nbsp;&nbsp; unassigned&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; RSV&nbsp;&nbsp; RESERVED&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; ATYP&nbsp;&nbsp; address&nbsp;&nbsp; type&nbsp;&nbsp; of&nbsp;&nbsp; following&nbsp;&nbsp; address&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; IP&nbsp;&nbsp; V4&nbsp;&nbsp; address:&nbsp;&nbsp; X'01'&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; DOMAINNAME:&nbsp;&nbsp; X'03'&nbsp;&nbsp; <br>&nbsp; 　　o&nbsp;&nbsp; IP&nbsp;&nbsp; V6&nbsp;&nbsp; address:&nbsp;&nbsp; X'04'&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; BND.ADDR&nbsp;&nbsp; server&nbsp;&nbsp; bound&nbsp;&nbsp; address&nbsp;&nbsp; <br>&nbsp; o&nbsp;&nbsp; BND.PORT&nbsp;&nbsp; server&nbsp;&nbsp; bound&nbsp;&nbsp; port&nbsp;&nbsp; in&nbsp;&nbsp; network&nbsp;&nbsp; octet&nbsp;&nbsp; order&nbsp;&nbsp; <br>&nbsp; 标志RESERVED(RSV)的地方必须设置为X'00'。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　如果被选中的方法包括有认证目的封装，完整性和/或机密性的检查，则回应就被封装在方法选择的封装套中。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; CONNECT&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　在CONNECT的回应中，BND.PORT包括了服务器分配的连接到目标主机的端口号，同时BND.ADDR包含了关联的IP地址。此处所提供的 BND.ADDR通常情况不同于客户机连接到SOCKS服务器所用的IP地址，因为这些服务器提供的经常都是多址的(muti-homed)。都期望 SOCKS主机能使用DST.ADDR和DST.PORT,连接请求评估中的客户端源地址和端口。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; BIND&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　BIND请求被用在那些需要客户机接受到服务器连接的协议中。FTP就是一个众所周知的例子，它通过使用命令和状态报告建立最基本的客户机-服务器连接，按照需要使用服务器-客户端连接来传输数据。(例如：ls,get,put)&nbsp;&nbsp; <br>&nbsp; 都期望在使用应用协议的客户端在使用CONNECT建立首次连接之后仅仅使用BIND请求建立第二次连接。都期望SOCKS主机在评估BIND请求时能够使用DST.ADDR和DST.PORT。&nbsp;&nbsp; <br>&nbsp; 　　有两次应答都是在BIND操作期间从SOCKS服务器发送到客户端的。第一次是发送在服务器创建和绑定一个新的socket之后。BIND.PORT 域包含了SOCKS主机分配和侦听一个接入连接的端口号。BND.ADDR域包含了关联的IP地址。　　客户端具有代表性的是使用这些信息来通报应用程序连接到指定地址的服务器。第二次应答只是发生在预期的接入连接成功或者失败之后。在第二次应答中，BND.PORT和BND.ADDR域包含了欲连接主机的地址和端口号。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; UDP&nbsp;&nbsp; ASSOCIATE(连接？)&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　UDP&nbsp;&nbsp; 连接请求用来建立一个在UDP延迟过程中操作UDP数据报的连接。DST.ADDR和DST.PORT域包含了客户机期望在这个连接上用来发送UDP数据报的地址和端口。服务器可以利用该信息来限制至这个连接的访问。如果客户端在UDP连接时不持有信息，则客户端必须使用一个全零的端口号和地址。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　当一个含有UDP连接请求到达的TCP连接中断时，UDP连接中断。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　在UDP连接请求的回应中，BND.PORT和BND.ADDR域指明了客户端需要被发送UDP请求消息的端口号/地址。&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 回应过程&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; <br>&nbsp; 　　当一个回应(REP值非X'00')指明失败时，SOCKS主机必须在发送后马上中断该TCP连接。该过程时间必须为在侦测到引起失败的原因后不超过10秒。&nbsp;&nbsp; <br>&nbsp; 　　如果回应代码(REP值为X'00')时，则标志成功，请求或是BIND或是CONNECT，客户机现在就可以传送数据了。如果所选择的认证方法支持完整性、认证机制和/或机密性的封装，则数据被方法选择封装包来进行封装。类似，当数据从客户机到达SOCKS主机时，主机必须使用恰当的认证方法来封装数据。&nbsp;&nbsp;&nbsp;<br></span>&nbsp;&nbsp;&nbsp;&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="background-color: #ffcc99;">sock5代理工作原理<br>出处：darkness fallen<br>时间：Wed, 26 Apr 2006 11:42:15 +0000<br>作者：hjma<br>地址：</span><a href="http://hjma.scgy.org/blog/bo-blog/read.php?3" target="_blank"><span style="color: #ff9900;"><span style="background-color: #ffcc99;">http://hjma.scgy.org/blog/bo-blog/read.php?3</span></span></a></p>
+<p><span style="background-color: #ffcc99;">内容：<br>sock5代理的工作程序是：</span></p>
+<p><span style="background-color: #ffcc99;">1。需要代理方向服务器发出请求信息。</span></p>
+<p><span style="background-color: #ffcc99;">2。代理方应答</span></p>
+<p><span style="background-color: #ffcc99;">3。需要代理方接到应答后发送向代理方发送目的ip和端口</span></p>
+<p><span style="background-color: #ffcc99;">4。代理方与目的连接</span></p>
+<p><span style="background-color: #ffcc99;">5。代理方将需要代理方发出的信息传到目的方，将目的方发出的信息传到需要代理方。代理完成</span></p>
+<p><span style="background-color: #ffcc99;">由于网上的信息传输都是运用tcp或udp进行的，所以使用socks5代理可以办到网上所能办到的一切，而且不舆目的方会查到你的ip,既安全又方便</span></p>
+<p><span style="background-color: #ffcc99;">sock5支持UDP和TCP,但两种代理是有区别的，以下分类说明</span></p>
+<p><span style="background-color: #ffcc99;">如何用代理TCP协议</span></p>
+<p><span style="background-color: #ffcc99;">1。向服务器的1080端口建立tcp连接。</span></p>
+<p><span style="background-color: #ffcc99;">2。向服务器发送 05 01 00 （此为16进制码，以下同）</span></p>
+<p><span style="background-color: #ffcc99;">3。如果接到 05 00 则是可以代理</span></p>
+<p><span style="background-color: #ffcc99;">4。发送 05 01 00 01 + 目的地址(4字节） + 目的端口（2字节），目的地址和端口都是16进制码（不是字符串）。<br>例202.103.190.27 - 7201<br>则发送的信息为：05 01 00 01 CA 67 BE 1B 1C 21<br>(CA=202 67=103 BE=190 1B=27 1C21=7201)</span></p>
+<p><span style="background-color: #ffcc99;">5。接受服务器返回的自身地址和端口，连接完成</span></p>
+<p><span style="background-color: #ffcc99;">6。以后操作和直接与目的方进行TCP连接相同。</span></p>
+<p><span style="background-color: #ffcc99;">如何用代理UDP连接</span></p>
+<p><span style="background-color: #ffcc99;">1。向服务器的1080端口建立tcp连接</span></p>
+<p><span style="background-color: #ffcc99;">2。向服务器发送 05 01 00</span></p>
+<p><span style="background-color: #ffcc99;">3。如果接到 05 00 则是可以代理</span></p>
+<p><span style="background-color: #ffcc99;">4。发送 05 03 00 01 00 00 00 00 + 本地UDP端口（2字节）</span></p>
+<p><span style="background-color: #ffcc99;">5。服务器返回 05 00 00 01 +服务器地址+端口</span></p>
+<p><span style="background-color: #ffcc99;">7.需要申请方发送<br>00 00 00 01 +目的地址IP（4字节）+目的端口 +所要发送的信息</span></p>
+<p><span style="background-color: #ffcc99;">8。当有数据报返回时<br>向需要代理方发出00 00 00 01 +来源地址IP（4字节）+来源端口 +接受的信息</span></p>
+<p><span style="background-color: #ffcc99;">注：此为不需要密码的代理协议，只是socks5的一部分，完整协议请看RFC1928</span></p>
+<p><span style="background-color: #ffcc99;">附foxmail连接<a href="http://lib.csdn.net/base/softwaretest" class="replace_word" title="软件测试知识库" target="_blank" style="color:#df3434; font-weight:bold;">测试</a>数据：<br>无sock5代理时TCP数据：<br>客户端 服务器<br>SYN<br>ACKSYN<br>ACK<br>+OK X1 NT-POP3 Server iflytek.com (IMail 8.15 230122-9)..<br>USER hjma..<br>+OK send your password..<br>PASS xxxxxxx..<br>+OK maildrop locked and ready..<br>STAT..<br>+OK 0 0..<br>QUIT..<br>+OK POP3 Server saying Good-Bye..<br>ACKFIN<br>ACK<br>ACKFIN<br>ACK</span></p>
+<p><span style="background-color: #ffcc99;">使用sock5代理时TCP数据：<br>客户端 sock5服务器<br>SYN<br>ACKSYN<br>ACK<br>05 01 00 00 00 00 <br>05 00 00 00 00 00<br>05 01 00 03 0E 31 39 32 2E 31 36 38 2E 37 35 2E 31 31 34 00 6E （.....192.168.75.114.n）<br>05 00 00 01 C0 A8 4D 56 08 D4<br>ACK<br>+OK X1 NT-POP3 Server iflytek.com (IMail 8.15 228888-9)..<br>USER hjma..<br>+OK send your password..<br>PASS xxxxxxx..<br>+OK maildrop locked and ready..<br>STAT..<br>+OK 0 0..<br>QUIT..<br>+OK POP3 Server saying Good-Bye..<br>ACKFIN<br>ACK<br>ACKFIN<br>ACK</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div><span style="background-color: #00ffff;">sock代理分为sock4代理和 sock5代理。sock4支持TCP（事实仅支持TCP）,无需用户名、密码验证；sock5支持TCP和UDP，根据代理服务器设置是否需要用户名、密码认证。TCP和UDP代理工作原理产不多，UDP代理网上多的是，google一下即可。这里只讲TCP代理工作原理。</span></div>
+<div><span style="background-color: #00ffff;">sock代理工作原理大致如下：</span></div>
+<div><span style="background-color: #00ffff;">1。需要代理方向服务器发出请求信息；</span></div>
+<div><span style="background-color: #00ffff;">2。代理方应答；</span></div>
+<div><span style="background-color: #00ffff;">3。需要代理方接到应答后发送向代理方发送目的ip和端口；</span></div>
+<div><span style="background-color: #00ffff;">4。代理方与目的连接；</span></div>
+<div><span style="background-color: #00ffff;">5。代理方将需要代理方发出的信息传到目的方，将目的方发出的信息传到需要代理方；</span></div>
+<div><span style="background-color: #00ffff;">6。代理完成。</span></div>
+<div><span style="background-color: #00ffff;">下面对sock4和sock5的代理工作原理流程分别详细说明，并给出示例代码。</span></div>
+<div><span style="color: #1f497d;"><strong><span style="background-color: #00ffff;">sock4的TCP代理工作流程：</span></strong></span></div>
+<div><span style="background-color: #00ffff;">1。我们首先还是连接服务器,然后发送数据给服务器。由于是无用户密码验证，我们需要发送9个字节的数据,展开写为 04 01 + 目标端口(2字节) + 目标IP(4字节) + 00，其中目标端口和目标IP就是我们真正要连接的服务器端口和服务器地址；</span></div>
+<div><span style="background-color: #00ffff;">2。代理服务器返回8字节的数据,我们只要判断第二字节是否为90即可，若是90连接成功,否则失败.剩下的操作和不存在代理服务器一样,可直接用发送/接受数据。</span></div>
+<div><strong><span style="color: #1f497d;"><span style="background-color: #00ffff;">sock5的TCP代理工作流程：</span></span></strong></div>
+<div><span style="background-color: #00ffff;">1。向服务器的代理端口建立tcp连接。一般为1080；</span></div>
+<div><span style="background-color: #00ffff;">2。向服务器发送 05 02 00 02（此为16进制码，以下同），让代理服务器选择认证方式 ；</span></div>
+<div><span style="background-color: #00ffff;">05</span></div>
+<div><span style="background-color: #00ffff;">02 这里确认2种认证方式 无需认证和需要认证，只需要验证一种方式，可以直接发送05 01 00查询服务器是否支持无认证代理方式；</span></div>
+<div><span style="background-color: #00ffff;">00 不需要认证；</span></div>
+<div><span style="background-color: #00ffff;">02 需要认证；</span></div>
+<div><span style="background-color: #00ffff;">3。如果接到 05 00 则是可以代理或则05 02需要认证，这里只需要判断第二字节就行；</span></div>
+<div><span style="background-color: #00ffff;">如果需要认证，需要向服务器发送01 用户名长度（2字节）用户名 密码长度（2字节）密码，然后接收服务器返回数据，如果第二字节为 00，则认证通过，否则无法认证，则连接失败；</span></div>
+<div><span style="background-color: #00ffff;">4。发送 05 01 00 01 + 目的地址(4字节）+ 目的端口（2字节），目的地址和端口都是16进制码（不是字符串）。<br>例202.103.190.27 - 7201<br>则发送的信息为：05 01 00 01 CA 67 BE 1B 1C 21<br>(CA=202 67=103 BE=190 1B=27 1C21=7201)</span></div>
+<div><span style="background-color: #00ffff;">5。接收代理服务器返回的数据,我们只要判断第二字节是否为00即表示代理连接完成；</span></div>
+<div><span style="background-color: #00ffff;">6。以后操作和直接与目的方进行TCP连接相同。<br></span></div>
+<div><span style="background-color: #00ffff;">&nbsp;&nbsp; socks5代理和sock4代理都是很相似的(sock4代理网上应该有很多代码，我也曾在这里放过sock4代理的代理),不同的就是sock5代理除了支持UDP协议的数据外，还支持多种验证模式.一般常用的只是无验证模式(NO AUTHENTICATION )和用户/密码模式(USERNAME/PASSWORD),其它模式就算加上了，应用程序也不支持的(你可以看看oicq,msn,flashfxp等软件，也都只是支持这两种模式的).socks5代理一般是三种模式的支持,TCP CONNECT,TCP BIND和UDP ASSOCIATE,这里最常用的是TCP CONNECT,因为绝大部分TCP协议的软件都是使用这种模式的，TCP BIND只会用在FTP的Active模式中(就是数据连接是由FTP服务连接回FTP客户),并不常用，而且我测试过flashfxp和cuteftp,两种都不支持TCP BIND的(就是说如果是用了代理的话，两种软件都不支持使用Active模式,一定要使用Passive模式和FTP服务进行数据交换),所以我们只简单地讨论一下TCP CONNECT和UDP ASSOCIATE两种模式.</span></div>
+<div><span style="background-color: #00ffff;">&nbsp;Socks5代理的请求和返回信息.<br>1.客户端发送到socks5代理至少三个字节的请求,第一个字节一定为5,第二个字节为使用多少种验证,第三个字节为验证模式代码.<br>例:如果要使用"USERNAME/PASSWORD"，那么这三个字节为5 1 2</span></div>
+<div><span style="background-color: #00ffff;">2.Sock5代理接到上面请求后,如果是支持"USERNAME/PASSORD"的验证模式，就会返回两个字节,第一字节为5,第二字节为2.</span></div>
+<div><span style="background-color: #00ffff;">3.客户端然后就向socks5代理发送验证信息,信息第一字节不需要理会,第二字节为验证用户名的长度，第三字节开始是用户名和密码信息.</span></div>
+<div><span style="background-color: #00ffff;">4.socks5代理验证用户名和密码成功后，向客户端返回两个字节,5和0,如果验证失败，返回0x05和0xff.</span></div>
+<div><span style="background-color: #00ffff;">5.客户端开始向sock5代理发送第一个向远程目标进行操作的请求,请求模式如下:<br>第一位为5<br>第二位是使用模式,0x01代表TCP CONNECT,0x02代表TCP BIND,0x03代表UDP ASSOCIATE<br>第三位保留<br>第四位是地址使用模式:0x01代表IP V4地址;0x03代表域名;0x04代表IP V6地址(一般常见的只是0x01和0x03两种模式，因为很多软件都不支持IP V6的)<br>第五位开始就是目标的地址和端口.</span></div>
+<div><span style="background-color: #00ffff;">6.socks代理开始处理这个请求,对于TCP CONNECT和UDP ASSOCIATE模式有不同的处理.<br>A.对于TCP CONNECT<br>将请求分析后，将目标地址和 目标端口从请求中解析出来(无论请求中带的地址是否以域名方式发送过来，最终要将地址转换为IPV4的地址),然后使用connect()连接到目标地址中的目标端口中去，如果成功连接，那就向客户端发送回10个字节的信息,第一字节为5,第二字节为0,第三字节为0,第四字节为1,其它字节都为0.<br>B.对于UDP ASSOCIATE(这个复杂很多了)<br>将请求分析后，先保存好客户端的连接信息(客户端的IP和连接过来的源端口),然后本地创建一个UDP的socket,并将socket使用bind()绑入本地所有地址中的一个UDP端口中去，然后得到本地UDP绑定的IP和端口,创建一个10个字节的信息，返回给客户端去.第一字节为0x05,第二和第三字节都为0,第四字节为0x01(IPV4地址),第五位到第8位是UDP绑定的IP(以DWORD模式保存),第9位和第10位是UDP绑定的端口(以WORD模式保存).</span></div>
+<div><span style="background-color: #00ffff;">7.最后是数据的传送了,TCP CONNECT和UDP ASSOCIATE模式又有所不同<br>A.对于TCP CONNECT<br>很简单,从客户中读到的所有数据，马上发送到远程目标；从远程目标中读到的所有数据，马上全部发送到客户端<br>B.对于UDP ASSOCIATE(又是复杂)，<br>有数据包时，首先将数据全部读取，然后判断数据是从客户端还是远程目标传送过来的(在读取时可以得到是从什么地址和端口读取到数据的，然后比较上面第6步时我们保存了下来的客户端的连接信息)，如果数据是从客户端读取过来的,我们要将UDP头去掉.例如我们读取到的Buffer,Buffer[3]是1时，UDP头就是10个字节长度,如果Buffer[3]是3的话,UDP头长度是7+Buffer[4].例如我们得到UDP头是20位，我们接收到的Buffer是50位长度，那么我们发送到目标的数据包长度是30位，前20位不发送，只发送后面的30位.如果数据是<br>从远程目标发送来的,我们就要多发送多10位的UDP头,这10位的UDP头前三位都是0,第四位是0x01,第五到第八位是我们保存下来的客户端的IP,第9和第十位是客户端的端口.如果我们接收到的Buffer长度是50,那么我们发送到客户端的数据就要加上10位的UDP头，也就是一共要发送60位字节长度的数据.</span></div>
+<div><span style="background-color: #00ffff;">支持验证，支持TCP CONNECT和UDP ASSOCIATE模式的sock5代理的基本编写就是这样。<br></span><a href="http://www.faqs.org/rfcs/rfc1928.html" target="_blank"><span style="background-color: #00ffff;">http://www.faqs.org/rfcs/rfc1928.html</span></a><span style="background-color: #00ffff;"> 是socks5代理的rfc,不过是写得非常非常简单的。我也有时会质疑rfc为什么都这么简单和模糊，为什么不可以写详细一点，或加上几个简单的例子。FTP服务的rfc甚至连列举文件时，ftp服务向客户发送回去的每一行信息的标准都没有，所以大家可以看到几乎每一个ftp服务向客户端返回的文件列表都不一定是相同的。</span></div>
+<div><span style="background-color: #00ffff;">有一点需要补充的，那就是socks5代理的超时。在刚连接和验证那段期间可以设置超时，例如用户连接后30秒都没有验证的，就将那连接关闭。但验证后，就不可以设置超时了(或者是可以设置的，但我实在不知道如何做)。不可以设置超时的原因有两个:</span></div>
+<div><span style="background-color: #00ffff;">1.对于UDP的连接，因为UDP是无连接的，你很难确定用户是否还是连接着，还会继续发送数据过来的。有人说可以定时发送数据过去。这是一种办法，但是要考虑到，因为你不知道用户是使用什么软件在发送UDP数据过来，你乱发数据过去，很大可能是被客户软件认为是不合法的数据而过滤掉，如果sock5代理因为发过去的数据被过滤了而认为客户 是断开了，那么极容易就将没有断开的用户也踢下去了,而且现在的oicq还会使用使用两个连接，一个是UDP连接，另一个是TCP连接，UDP连接只是登陆上服务器时使用，TCP连接却是进行数据传输的，而UDP连接却是一直都不会有数据传输的了，如果socks5代理因为UDP连接长时间没有数据传输而将那个UDP连接关闭的话，oicq也会因为这样而掉线(你关闭了UDP连接，oicq以为代理是不可用了，自己会将TCP连接断开)</span></div>
+<div><span style="background-color: #00ffff;">2.对于TCP连接，设置超时是很简单，但只是对于一般只是使用一个连接进行数据通讯的软件有效，对于FTP是完全失效。当FTP客户挂socks5代理时，当有数据传输，例如列文件，下载文件或上传文件时，就会需要两个TCP连接，一个是接收FTP客户或接收FTP服务器返回的信息的，另一个是进行数据交换的，如果在进行长时间的数据交换时，例如上传文件或下载文件，有可能是要进行几小时或更长的数据交换，接收FTP客户命令或接收FTP服务器返回信息的那个TCP连接，是一直都没有数据通过的,如果设置了超时，例如1小时没有数据通过就断开连接的话，你就会将那个TCP连接关闭了，如果你关闭了那个TCP连接的话，FTP客户端也会马上将数据交换的那个TCP连接马上关闭(因为FTP客户端会认为自己被断开了)。</span></div>
+<div><span style="background-color: #00ffff;">就因为这两点,我自己认为无法设置超时.也测试过几个socks5代理软件，也是没有在验证后做超时的处理的。因为TCP连接正常断开还是非正常的断开,socks5代理都可以轻易检查到，但UDP连接就很难检查，所以在测试中都有发现一些不正常断开的UDP连接还是一直没被socks5代理关闭到(ccproxy,wingate，还有大家可能最熟悉的skserver也是这样).</span></div>   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1499826196477">
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/laotse/article/details/6294171#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   
+
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+
+ 
+
+
+        <div id="digg" articleid="6294171">
+            <dl id="btnDigg" class="digg digg_enable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_enable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;http://blog.csdn.net/laotse/article/details/5994034&#39;;">上一篇</span><a href="http://blog.csdn.net/laotse/article/details/5994034" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">挺腾讯反360的基本都是托</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;http://blog.csdn.net/laotse/article/details/6296573&#39;;">下一篇</span><a href="http://blog.csdn.net/laotse/article/details/6296573" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">用c#编写socks代理服务器，大白话细述协议的最重要部分。</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+            <div class="similar_article">
+                    <h4></h4>
+                    <div class="similar_c" style="margin:20px 0px 0px 0px">
+                        <div class="similar_c_t">
+                          &nbsp;&nbsp;相关文章推荐
+                        </div>
+                   
+                        <div class="similar_wrap tracking-ad" data-mod="popu_36">                       
+                            <ul class="similar_list fl">    
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/JeffreyLau7/article/details/52594044" title="SOCKS v5 协议 (RFC1928) 中文文档" strategy="BlogCommendFromCsdn" target="_blank">SOCKS v5 协议 (RFC1928) 中文文档</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://to8to-bruce.iteye.com/blog/2219199" title="perl版socks5代理" strategy="BlogCommendFromCsdn" target="_blank">perl版socks5代理</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/suifengdeshitou/article/details/48782667" title="Sock5协议详解" strategy="BlogCommendFromCsdn" target="_blank">Sock5协议详解</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://dalan-123.iteye.com/blog/2225160" title="C# socks5详解 转" strategy="BlogCommendFromCsdn" target="_blank">C# socks5详解 转</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://newbanlance.iteye.com/blog/2150694" title="Socks5协议中文文档" strategy="BlogCommendFromCsdn" target="_blank">Socks5协议中文文档</a>
+                                   </li>
+                            </ul>
+                              <ul class="similar_list fr">      
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/winterlc/article/details/5629901" title="SOCKS Protocol Version 5[rfc1928]" strategy="BlogCommendFromCsdn" target="_blank">SOCKS Protocol Version 5[rfc1928]</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://dalan-123.iteye.com/blog/2222138" title="关于C#使用socks5做代理" strategy="BlogCommendFromCsdn" target="_blank">关于C#使用socks5做代理</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/Vincent95/article/details/71194864" title="Socks5协议中文文档（RFC1928）" strategy="BlogCommendFromCsdn" target="_blank">Socks5协议中文文档（RFC1928）</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://yang-min.iteye.com/blog/193755" title="Debian 下 socks5服务器安装" strategy="BlogCommendFromCsdn" target="_blank">Debian 下 socks5服务器安装</a>
+                                   </li>
+                                   <li>
+                                       <em>•</em>
+                                       <a href="http://blog.csdn.net/wangzhanlili/article/details/474861" title="(RFC1928)SOCKS V5" strategy="BlogCommendFromCsdn" target="_blank">(RFC1928)SOCKS V5</a>
+                                   </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+      
+</div>
+
+    <div>
+        
+
+        <script type="text/javascript">
+            /*博客内容页下方Banner1-728*90，创建于2016-12-13*/
+            var cpro_id = "u2843949";
+        </script>
+        <script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/c.js"></script><div id="BAIDU_SSP__wrapper_u2843949_0"><iframe id="iframeu2843949_0" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/jcpm(1).html" width="728" height="90" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:728px;height:90px" allowtransparency="true"></iframe></div>
+
+     </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/laotse/svc/GetSuggestContent/6294171",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+        <dl class="blog-ass-articl tracking-ad" id="res-relatived" data-mod="popu_84"> 
+             <dt><span>猜你在找</span></dt>    
+           
+    
+           
+
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/46" title="机器学习之概率与统计推断" strategy="undefined" target="_blank">机器学习之概率与统计推断</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/49" title="机器学习之数学基础" strategy="undefined" target="_blank">机器学习之数学基础</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/48" title="机器学习之凸优化" strategy="undefined" target="_blank">机器学习之凸优化</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/47" title="机器学习之矩阵" strategy="undefined" target="_blank">机器学习之矩阵</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/421" title="响应式布局全新探索" strategy="undefined" target="_blank">响应式布局全新探索</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/426" title="探究Linux的总线、设备、驱动模型" strategy="undefined" target="_blank">探究Linux的总线、设备、驱动模型</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/detail/422" title="深度学习基础与TensorFlow实践" strategy="undefined" target="_blank">深度学习基础与TensorFlow实践</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/45" title="深度学习之神经网络原理与实战技巧" strategy="undefined" target="_blank">深度学习之神经网络原理与实战技巧</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/43" title="前端开发在线峰会" strategy="undefined" target="_blank">前端开发在线峰会</a>
+                        </dd>
+                        <dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;">
+                             <a href="http://edu.csdn.net/huiyiCourse/series_detail/44" title="TensorFlow实战进阶：手把手教你做图像识别应用" strategy="undefined" target="_blank">TensorFlow实战进阶：手把手教你做图像识别应用</a>
+                        </dd>
+        </dl>
+
+
+
+
+            
+                                    
+            
+                                    
+
+        <!-- 广告位开始 -->
+        <!-- 广告位结束 -->
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><br>&nbsp;&nbsp;暂无评论<br><br><div class="clear"></div></div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form"><a name="commentbox"></a><a name="reply"></a><a name="quote"></a><form action="http://blog.csdn.net/laotse/comment/submit?id=6294171" method="post" onsubmit="return subform(this);"><div class="commentform"><div class="panel_head">发表评论</div><ul><li class="left">用 户 名：</li><li class="right">libhack</li></ul><ul><li class="left">评论内容：</li><li class="right" style="position:relative;"><div id="ubbtools"><a href="http://blog.csdn.net/laotse/article/details/6294171#insertcode" code="code"><img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/code.gif" border="0" alt="插入代码" title="插入代码"></a></div><div id="lang_list" style="position: absolute; top: 28px; left: 0px; display: none;"><a class="long_name" href="http://blog.csdn.net/laotse/article/details/6294171#html">HTML/XML</a><a class="long_name" href="http://blog.csdn.net/laotse/article/details/6294171#objc">objective-c</a><a class="zhong_name" href="http://blog.csdn.net/laotse/article/details/6294171#delphi">Delphi</a><a class="zhong_name" href="http://blog.csdn.net/laotse/article/details/6294171#ruby">Ruby</a><a href="http://blog.csdn.net/laotse/article/details/6294171#php">PHP</a><a class="duan_name" href="http://blog.csdn.net/laotse/article/details/6294171#csharp">C#</a><a style=" border-right: none;" class="duan_name" href="http://blog.csdn.net/laotse/article/details/6294171#cpp">C++</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/laotse/article/details/6294171#javascript">JavaScript</a><a style=" border-bottom:none;" class="long_name" href="http://blog.csdn.net/laotse/article/details/6294171#vb">Visual Basic</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/laotse/article/details/6294171#python">Python</a><a style=" border-bottom:none;" class="zhong_name" href="http://blog.csdn.net/laotse/article/details/6294171#java">Java</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/laotse/article/details/6294171#css">CSS</a><a style="border-bottom:none;" class="duan_name" href="http://blog.csdn.net/laotse/article/details/6294171#sql">SQL</a><a style="border:none;" class="duan_name" href="http://blog.csdn.net/laotse/article/details/6294171#plain">其它</a></div><textarea class="comment_content" name="comment_content" id="comment_content" style="width: 400px; height: 200px;"></textarea></li></ul><ul><input type="hidden" id="comment_replyId" name="comment_replyId"><input type="hidden" id="comment_userId" name="comment_userId" value="521203"><input type="hidden" id="commentId" name="commentId" value=""><input type="submit" class="comment_btn" value="提交">&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span></ul></div></form></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '6294171';
+    var commentscount = 0;
+    var islock = false
+</script>
+
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){        
+        
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+    var articletitle='转载的socks4 socks5 rfc1928一大堆';
+
+</script>
+
+
+
+
+
+
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/laotse" target="_blank">
+    <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/1_laotse.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/laotse" class="user_name" target="_blank">太上老君</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=laotse&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>513064次</span></li>
+    <li>积分：<span>2710</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/blog5.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：2710 </div>
+        </span>  </li>
+    <li>排名：<span>第12749名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>31篇</span></li>
+    <li>转载：<span>7篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>138条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank" data-mod="popu_306">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+   
+    $(function () {
+        $("#btnSubmit").unbind("click");
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {           
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            if ($("#inputSearch").val() == "") {               
+                alert("请录入搜索关键词！");                         
+                return false;
+            }
+            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/laotse/article/category/170776" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C＃</a><span>(26)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/laotse/article/category/751127" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">见解</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/laotse/article/category/804164" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">转载</a><span>(6)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/laotse/article/month/2014/04">2014年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2013/11">2013年11月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2012/12">2012年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2012/11">2012年11月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2012/10">2012年10月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/laotse/article/month/2012/06">2012年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2012/05">2012年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2012/04">2012年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2011/05">2011年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2011/04">2011年04月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2010/11">2010年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2010/09">2010年09月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2008/09">2008年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2007/05">2007年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/laotse/article/month/2007/04">2007年04月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/1585160" title="发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0">发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0</a><span>(242663)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/5903651" title="编写了一个HTTP高匿代理">编写了一个HTTP高匿代理</a><span>(73265)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6294171" title="转载的socks4 socks5 rfc1928一大堆">转载的socks4 socks5 rfc1928一大堆</a><span>(18582)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6296573" title="用c#编写socks代理服务器，大白话细述协议的最重要部分。">用c#编写socks代理服务器，大白话细述协议的最重要部分。</a><span>(16100)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6306767" title="SocksProxy代理服务器下载，附IE使用socks代理的方法">SocksProxy代理服务器下载，附IE使用socks代理的方法</a><span>(15674)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6334917" title="终于可以不用radmin了">终于可以不用radmin了</a><span>(13393)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/5874778" title="c#做端口转发程序支持正向连接和反向链接">c#做端口转发程序支持正向连接和反向链接</a><span>(12350)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6331368" title="localsystem以指定用户身份运行程序">localsystem以指定用户身份运行程序</a><span>(10906)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/7487879" title="要特别注意这个坑爹的玩意HttpWebRequest.ServicePoint.ConnectionLimit">要特别注意这个坑爹的玩意HttpWebRequest.ServicePoint.ConnectionLimit</a><span>(10175)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6325941" title="添加引用、dllimport、using、命名空间和dll的区别">添加引用、dllimport、using、命名空间和dll的区别</a><span>(8513)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/1585160" title="发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0">发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0</a><span>(44)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/5874778" title="c#做端口转发程序支持正向连接和反向链接">c#做端口转发程序支持正向连接和反向链接</a><span>(21)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6334917" title="终于可以不用radmin了">终于可以不用radmin了</a><span>(15)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6296573" title="用c#编写socks代理服务器，大白话细述协议的最重要部分。">用c#编写socks代理服务器，大白话细述协议的最重要部分。</a><span>(7)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/7487879" title="要特别注意这个坑爹的玩意HttpWebRequest.ServicePoint.ConnectionLimit">要特别注意这个坑爹的玩意HttpWebRequest.ServicePoint.ConnectionLimit</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/5903651" title="编写了一个HTTP高匿代理">编写了一个HTTP高匿代理</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/5910378" title="加密的TCP通讯全过程">加密的TCP通讯全过程</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/7577677" title="亲自感受到了南棒偏执的爱国">亲自感受到了南棒偏执的爱国</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6325941" title="添加引用、dllimport、using、命名空间和dll的区别">添加引用、dllimport、using、命名空间和dll的区别</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/laotse/article/details/6331368" title="localsystem以指定用户身份运行程序">localsystem以指定用户身份运行程序</a><span>(4)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/74779821" target="_blank">* CSDN日报20170706——《屌丝程序员的逆袭之旅》</a></li>
+<li><a href="http://blog.csdn.net/phodal/article/details/74516182" target="_blank">* 探讨后端选型中不同语言及对应的Web框架</a></li>
+<li><a href="http://blog.csdn.net/briblue/article/details/74616922" target="_blank">* 细说反射，Java 和 Android 开发者必须跨越的坎</a></li>
+<li><a href="http://blog.csdn.net/xiaopihaierletian/article/details/74688643" target="_blank">* 深度学习 | 反向传播与它的直观理解</a></li>
+<li><a href="http://blog.csdn.net/liyuanxiang1984/article/details/74611136" target="_blank">* ArcGIS 水文分析实战教程——雨量计算与流量统计</a></li>
+<li><a href="http://blog.csdn.net/broadview2006/article/details/74431515" target="_blank">* 每周荐书：Android、Keras、ES6（评论送书）</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/6325941#comments">添加引用、dllimport、using、命名空间和dll的区别</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/tgbyn" class="user_name">13期-杨楠</a>:
+引用程序集（可以有多个命名空间），using命名空间
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/1585160#comments">发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/Evan_Hsu" class="user_name">Evan苏义成</a>:
+您好，本学期计算机网络期末作业需要用到syn扫描，在谷歌搜索的半天，就您的比较靠谱，请问能否把相关的...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/5874778#comments">c#做端口转发程序支持正向连接和反向链接</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/CoderJYF" class="user_name">JiYF</a>:
+这个程序真心不错，感谢博主，思路真心不错！使用场景，服务器固定ip，但是内存太小，连个Tomcat都...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/5874778#comments">发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/weixin_38778496" class="user_name">weixin_38778496</a>:
+win7 旗舰版扫描没有成功是为什么也安装了winpcap
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/5874778#comments">发布原创的syn扫描器－SharpTcpScanner AssemblyFileVersion:1.9.0.0</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/avisp" class="user_name">avisp</a>:
+win 2003 无法使用
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/7487879#comments">要特别注意这个坑爹的玩意HttpWebRequest.ServicePoint.ConnectionLimit</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/qq_37488131" class="user_name">qq_37488131</a>:
+非常感谢，这个问题困扰了我相当长的一段时间，吃饭饭不香，睡觉觉不香。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/5903651#comments">编写了一个HTTP高匿代理</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mosangbike" class="user_name">苏门答腊</a>:
+好文，顶一个
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/6296573#comments">用c#编写socks代理服务器，大白话细述协议的最重要部分。</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mosangbike" class="user_name">苏门答腊</a>:
+写的好，一看就是亲历开发，不是人云亦云
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/6296573#comments">c#做端口转发程序支持正向连接和反向链接</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/jiangshunmin" class="user_name">jiangshunmin</a>:
+不知道为什么，我用这个转发http没有成功，老是一连接上就断开了，转发sql到是成功了，但cpu占用...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/laotse/article/details/6296573#comments">c#做端口转发程序支持正向连接和反向链接</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/liliqiangyxhaha" class="user_name">liliqiangyxhaha</a>:
+您好，想请问下，是不是客户端服务端基于TCP的协议都可以转发，比如RPC，谢谢
+    </p>
+    </li>
+</ul>
+</div>
+
+
+<div id="custom_column_964353" class="panel">
+<ul class="panel_head"><span>我的网站</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://www.laotse.mw/" target="_blank">太上老君全球中文网</a> (<a href="http://www.laotse.mw/rss.php" target="_blank">RSS</a>)</li></ul>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+
+                   <!-- 广告位开始 -->                    <!-- 广告位结束 -->
+                   <div class="tracking-ad" data-view="true" data-mtp="63" data-order="40" data-con="ad_content_1260" style="width: 200px; height: 500px;">
+                         <div id="nav_show_top_stop" style="width: 200px; height: 500px; z-index: 1000; position: fixed; top: 2772px;"><div id="cpro_u2734128"><iframe id="iframeu2734128_0" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/jcpm(2).html" width="200" height="200" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:200px;height:200px" allowtransparency="true"></iframe></div>
+                             <div id="cpro_u3031287"><iframe id="iframeu3031287_0" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/jcpm(3).html" width="200" height="200" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:200px;height:200px" allowtransparency="true"></iframe></div></div>
+                   </div>
+    <script type="text/javascript">
+        setTimeout(function () {
+            var naviga_offsetTop = 0;
+            function naviga_stay_top() { var scrollTop = jQuery(document).scrollTop(); if (scrollTop > naviga_offsetTop) { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": "0px" }); } else { jQuery("#nav_show_top_stop").css({ "position": "fixed" }); jQuery("#nav_show_top_stop").css({ "top": naviga_offsetTop - scrollTop + "px" }); } }
+            function onload_function() { naviga_offsetTop = jQuery("#nav_show_top_stop").position().top; jQuery(window).bind("scroll", naviga_stay_top); jQuery(window).bind("mousewheel", naviga_stay_top); jQuery(document).bind("scroll", naviga_stay_top); jQuery(document).bind("mousewheel", naviga_stay_top); } jQuery(document).ready(onload_function);
+
+        }, 200);
+    </script>
+<script type="text/javascript">(window.cproArray = window.cproArray || []).push({ id: "u2734128" });  </script> 
+                    <script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/c.js" type="text/javascript"></script> 
+                   <script type="text/javascript">
+                       /*PC端-博客内容页左侧Button2-200*200-2017/7/10*/
+                       (window.cproArray = window.cproArray || []).push({ id: "u3031287" });
+</script>
+<script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/c.js"></script>
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+
+     
+
+   
+   
+     <!--new top-->
+   
+   
+
+    
+    
+    
+   
+
+   
+
+
+       <script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/MathJax.js"></script>
+          <script type="text/javascript">
+              //$(function () {
+              //    setTimeout(function () {
+              //        var searchtitletags = articletitle + ',' + $("#tags").html();
+              //        searchService({
+              //            index: 'blog',
+              //            query: searchtitletags,
+              //            from: 5,
+              //            size: 5,
+              //            appendTo: '#res',
+              //            url: 'recommend',
+              //            his: 2,
+              //            client: "blog_cf_enhance",
+              //            tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+              //        });
+              //    }, 1000);
+              //});
+
+         </script>
+    
+    <script src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/csdn_blog_detail.min.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-660-0108</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2017, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="position: absolute; z-index: 9990; width: 170px; left: -72px; top: 18px; display: block;">  <iframe src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/saved_resource(2).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>6</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/notify.js"></script><input type="hidden" id="aa_g_data_ids">
+        
+    <script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/csdn_public_blog_detail.min.js"></script>
+
+    <script type="text/javascript" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/showblogmedal.ashx"></script>
+
+     
+    
+
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/52b5334.js"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    
+    
+        
+     
+
+    
+          
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/saved_resource(3).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+    </div>
+
+
+        <script type="text/javascript">
+
+            $(function () {
+                var fromjs = $("#fromjs");
+                if (fromjs.length > 0) {
+                    $("#fromjs .markdown_views pre").addClass("prettyprint");
+                    prettyPrint();
+
+                    $('pre.prettyprint code').each(function () {
+                        var lines = $(this).text().split('\n').length;
+                        var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                        $(this).addClass('has-numbering').parent().append($numbering);
+                        for (i = 1; i <= lines; i++) {
+                            $numbering.append($('<li/>').text(i));
+                        };
+                        $numbering.fadeIn(1700);
+                    });
+
+                    $('.pre-numbering li').css("color", "#999");
+                }
+            });
+
+            $(".markdown_views a[target!='_blank']").attr("target", "_blank");
+
+            //$(".toc a[target='_blank']").attr("target", "");
+
+            setTimeout(function () {
+                $(".toc a[target='_blank']").attr("target", "");
+            }, 500);
+
+        </script>
+
+
+   
+<div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="转载的socks4 socks5 rfc1928一大堆" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="转载的socks4 socks5 rfc1928一大堆： http://blog.csdn.net/laotse/article/details/6294171"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>server</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>tcp</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>服务器</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>methods</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>ftp服务器</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>防火墙</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="server,tcp,服务器,methods,ftp服务器,防火墙,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-QRcode" class="QRcodebg1" title="扫描二维码" style="top:140px"><span class="closeQR"></span></a><a id="com-quick-reply" title="快速回复" style="top:274px"></a><a id="com-quick-collect" title="我要收藏" style="top:312px"></a><a id="com-d-top-a" style="top: 350px; display: none;" title="返回顶部" onclick=""></a></div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/laotse/article/details/6294171#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/laotse/article/details/6294171#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/laotse/article/details/6294171#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./转载的socks4 socks5 rfc1928一大堆 - laotse的专栏 - CSDN博客_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/laotse/article/details/6294171#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/laotse/article/details/6294171#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true"></div></body></html>
